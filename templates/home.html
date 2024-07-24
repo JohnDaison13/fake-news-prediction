@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Prediction</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="form">
+        <h1>Fake news Prediction</h1>
+        <form id="predictForm" class="predictForm" action="{{ url_for('predict') }}" method="post">
+            <textarea name="news" id="news" placeholder="Enter the news title" rows="5" cols="50" required onkeydown="submitOnEnter(event)">{{ news_title }}</textarea>
+            <div class="button-div">
+                <button class="check-btn" type="submit">Check</button>
+                <button class="clear-btn" type="button" onclick="clearTextArea()">Clear</button>
+            </div>
+        </form>
+        {% if data %}
+            {% if data == 'Fake' %}
+            <h2 class="red">Prediction: The news is {{ data }}!!</h2>
+            {% elif data == 'Real' %}
+            <h2 class="green">Prediction: The news is {{ data }}</h2>
+            
+            {% endif %}
+        {% endif %}
+        
+    </div>
+
+    <script>
+        function submitOnEnter(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); 
+                document.getElementById('predictForm').submit(); 
+            }
+        }
+
+        function clearTextArea() {
+            document.getElementById('news').value = '';
+            document.getElementById('clearForm').submit();
+        }
+
+    </script>
+    
+</body>
+</html>
+    
+
